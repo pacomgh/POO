@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import cstio.*;
 import java.time.Year;
+import java.util.Locale;
 
 public class Calendario {
     int cuenta;
@@ -20,6 +21,8 @@ public class Calendario {
     Date fechaActual = Calendar.getInstance().getTime();
     //creamos arreglo de apuntadores a objetos de la clase Date()
     Calendar fechas[] = new Calendar[1000];
+    //añadimos el arreglo de diferencias para las fechas
+    Calendar diferencia[];
    //creamos el atributo d 
     Dialog d = new Dialog();
     
@@ -29,8 +32,9 @@ public class Calendario {
         //System.out.println(c.fechaActual);
         //System.out.println(c.formato.format(c.fechaActual));
         c.datos();
-        //for (int i = 0; i < 2; i++)
-            //System.out.println(c.fechas[i]);            
+        c.showB();
+        for (int i = 0; i < 2; i++)
+            System.out.println(c.diferencia[i].getTime());            
         
         //System.out.println(c.validar("01/12/2012"));
         
@@ -109,11 +113,11 @@ public class Calendario {
                 //posicion i del arreglo                
                 fechas[i] = Calendar.getInstance();
                 //introducimos el año
-                fechas[i].add(Calendar.YEAR, año);
+                fechas[i].set(Calendar.YEAR, año);
                 //introducimos el mes
-                fechas[i].add(Calendar.MONTH, mes);
+                fechas[i].set(Calendar.MONTH, mes);
                 //introducimos el dia
-                fechas[i].add(Calendar.DAY_OF_MONTH, dia);
+                fechas[i].set(Calendar.DAY_OF_MONTH, dia);
                 //System.out.println(dia+", "+mes+", "+año);
                 //format.format(fechaActual);
                 //fechas[i]= new Date(año,mes,dia);
@@ -124,11 +128,32 @@ public class Calendario {
                 mes = Integer.parseInt(fecha[1]);
                 año = Integer.parseInt(fecha[2]);
                 fechas[i] = Calendar.getInstance();
-                fechas[i].add(Calendar.YEAR, año);
-                fechas[i].add(Calendar.MONTH, mes);
-                fechas[i].add(Calendar.DAY_OF_MONTH, dia);
+                fechas[i].set(Calendar.YEAR, año);
+                fechas[i].set(Calendar.MONTH, mes);
+                fechas[i].set(Calendar.DAY_OF_MONTH, dia);
                 //System.out.println(dia+", "+mes+", "+año);
-            }                      
+            }  
+            cuenta++;
         }    
-    }    
+    }  
+    
+    public void showB(){
+        diferencia = new Calendar[cuenta];
+        int diaR, mesR, añoR;
+        
+        for(int j=0; j<cuenta;j++){
+            /*
+            diaR=(fechas[j].DAY_OF_MONTH-fechas[j+1].DAY_OF_MONTH); 
+            mesR=(fechas[j].MONTH-fechas[j+1].MONTH); 
+            añoR=(fechas[j].YEAR-fechas[j+1].YEAR); */
+            if(j<cuenta){
+                diferencia[j]=Calendar.getInstance();
+                diferencia[j].set(Calendar.YEAR, -(fechas[j].YEAR-fechas[j+1].YEAR));
+                diferencia[j].set(Calendar.MONTH, -(fechas[j].MONTH-fechas[j+1].MONTH));
+                diferencia[j].set(Calendar.DAY_OF_MONTH, -(fechas[j].DAY_OF_MONTH-fechas[j+1].DAY_OF_MONTH));
+            }
+        }        
+    }
+    
+    
 }
