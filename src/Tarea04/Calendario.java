@@ -22,9 +22,11 @@ public class Calendario {
     //creamos arreglo de apuntadores a objetos de la clase Date()
     Calendar fechas[] = new Calendar[1000];
     //añadimos el arreglo de diferencias para las fechas
-    Calendar diferencia[];
+    //Calendar diferencia[];
    //creamos el atributo d 
     Dialog d = new Dialog();
+    //Creamos un arreglo de apuntadores a objetos de la clase fecha
+    Fecha diferencias[];
     
     public static void main(String[] args) {
         Calendario c = new Calendario();
@@ -33,8 +35,8 @@ public class Calendario {
         //System.out.println(c.formato.format(c.fechaActual));
         c.datos();
         c.showB();
-        for (int i = 0; i < 2; i++)
-            System.out.println(c.diferencia[i].getTime());            
+        //for (int i = 0; i < 2; i++)
+            //System.out.println(c.diferencia[i].getTime());            
         
         //System.out.println(c.validar("01/12/2012"));
         
@@ -138,20 +140,27 @@ public class Calendario {
     }  
     
     public void showB(){
-        diferencia = new Calendar[cuenta];
-        int diaR, mesR, añoR;
+        //inicializamos el arreglo para guardar las diferencias
+        diferencias=new Fecha[cuenta];
+        int dia1, mes1, año1, dia2, mes2, año2;
+        String partes1[], partes2[];
+        
         
         for(int j=0; j<cuenta;j++){
-            /*
-            diaR=(fechas[j].DAY_OF_MONTH-fechas[j+1].DAY_OF_MONTH); 
-            mesR=(fechas[j].MONTH-fechas[j+1].MONTH); 
-            añoR=(fechas[j].YEAR-fechas[j+1].YEAR); */
-            if(j<cuenta){
-                diferencia[j]=Calendar.getInstance();
-                diferencia[j].set(Calendar.YEAR, -(fechas[j].YEAR-fechas[j+1].YEAR));
-                diferencia[j].set(Calendar.MONTH, -(fechas[j].MONTH-fechas[j+1].MONTH));
-                diferencia[j].set(Calendar.DAY_OF_MONTH, -(fechas[j].DAY_OF_MONTH-fechas[j+1].DAY_OF_MONTH));
-            }
+            partes1 = new String[2];
+            dia1 = fechas[j].get(Calendar.DATE);
+            mes1 = fechas[j].get(Calendar.MONTH);
+            año1 = fechas[j].get(Calendar.YEAR);
+            
+            partes2 = new String[2];
+            dia2 = fechas[j+1].get(Calendar.DATE);
+            mes2 = fechas[j+1].get(Calendar.MONTH);
+            año2 = fechas[j+1].get(Calendar.YEAR);
+            
+            diferencias[j] = new Fecha();
+            diferencias[j].dia=(dia1-dia2);
+            diferencias[j].mes=(mes1-mes2);
+            diferencias[j].año=(año1-año2);
         }        
     }
     
