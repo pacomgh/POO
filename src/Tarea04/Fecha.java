@@ -15,33 +15,21 @@ public class Fecha {
     
     public int getAño() {
         return año;
-    }
-    
+    }    
 
     public int getDia() {
         return dia;
     }
     
-    public boolean setDia(int d) {
-        if (d>0)
-            return false;
-        else{
-            dia=d;
-            return true;
-        }       
+    public void setDia(int d) {
+        dia=d;
     }
     
-    public boolean setMes(int m) {
-        if (m>0)
-            return false;
-        else{
-            mes=m;
-            return true;
-        }       
+    public void setMes(int m) {
+        mes=m;    
     }
 
     public int getMes() {
         return mes;
-    }    
-    
+    }      
 }
