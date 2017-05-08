@@ -32,7 +32,7 @@ public class Calendario {
         //System.out.println(c.fechaActual);
         //System.out.println(c.formato.format(c.fechaActual));
         c.datos();
-        //c.algo();
+        c.algo();
         //for (int i = 0; i < 2; i++)
             //System.out.println(c.diferencia[i].getTime());            
         
@@ -103,9 +103,9 @@ public class Calendario {
                 //System.out.println("fehcas ingresada por el usuario"+v);
                 
             }while(!validar(v));
-            //System.out.println(v);
+            System.out.println(v);
             if (v.equalsIgnoreCase(formato.format(fechaActual))){
-                System.out.println("fechas "+v);
+                //System.out.println("fechas "+v);
                 //asigna la fecha actual a la variable v
                 //v=(String)formato.format(fechaActual);
                 //creamos el arreglo con la cantidad de veces que tenemos /
@@ -126,16 +126,13 @@ public class Calendario {
                 //System.out.println(dia+", "+mes+", "+año);
                 //format.format(fechaActual);
                 //fechas[i]= new Date(año,mes,dia);
-                System.out.println(v);
+                //System.out.println(v);
             }else{
                 System.out.println(" "+v);
                 fecha = v.split("/"); 
                 dia = Integer.parseInt(fecha[0]);
-                System.out.println(dia);
                 mes = Integer.parseInt(fecha[1]);
-                System.out.println(mes);
                 año = Integer.parseInt(fecha[2]);
-                System.out.println(año);
                 fechas[i] = Calendar.getInstance();
                 fechas[i].set(Calendar.YEAR, año);
                 fechas[i].set(Calendar.MONTH, mes);
