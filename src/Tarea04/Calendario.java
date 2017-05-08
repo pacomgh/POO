@@ -9,8 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import cstio.*;
-import java.time.Year;
-import java.util.Locale;
 
 public class Calendario {
     int cuenta;
@@ -23,7 +21,7 @@ public class Calendario {
     Calendar fechas[] = new Calendar[1000];
     //añadimos el arreglo de diferencias para las fechas
     //Calendar diferencia[];
-   //creamos el atributo d 
+   //creamos el atributo d c
     Dialog d = new Dialog();
     //Creamos un arreglo de apuntadores a objetos de la clase fecha
     Fecha diferencias[];
@@ -34,7 +32,7 @@ public class Calendario {
         //System.out.println(c.fechaActual);
         //System.out.println(c.formato.format(c.fechaActual));
         c.datos();
-        c.algo();
+        //c.algo();
         //for (int i = 0; i < 2; i++)
             //System.out.println(c.diferencia[i].getTime());            
         
@@ -45,7 +43,7 @@ public class Calendario {
     public boolean validar(String n){
         int dia, mes, año;
         String a[] = n.split("/");
-        System.out.println(a[0]+" "+a[1]+" "+a[2]);
+        //System.out.println(a[0]+" "+a[1]+" "+a[2]);
         dia=Integer.parseInt(a[0]);
         mes=Integer.parseInt(a[1]);
         año=Integer.parseInt(a[2]);
@@ -98,11 +96,16 @@ public class Calendario {
                 v = d.readString("Ingresa la fecha en formato dd/mm/aaaa \n"
                    + " o 'continuar'");                 
                 //Asigna la fecha acutal a la variable de lectura v
-                if (v.equalsIgnoreCase("continuar"))
+                if (v.equalsIgnoreCase("continuar")){
                     v=(String)formato.format(fechaActual);
+                    //System.out.println("entro al if");
+                }
+                //System.out.println("fehcas ingresada por el usuario"+v);
+                
             }while(!validar(v));
             //System.out.println(v);
-            if (v.equalsIgnoreCase((v=(String)formato.format(fechaActual)))){
+            if (v.equalsIgnoreCase(formato.format(fechaActual))){
+                System.out.println("fechas "+v);
                 //asigna la fecha actual a la variable v
                 //v=(String)formato.format(fechaActual);
                 //creamos el arreglo con la cantidad de veces que tenemos /
@@ -125,10 +128,14 @@ public class Calendario {
                 //fechas[i]= new Date(año,mes,dia);
                 System.out.println(v);
             }else{
+                System.out.println(" "+v);
                 fecha = v.split("/"); 
                 dia = Integer.parseInt(fecha[0]);
+                System.out.println(dia);
                 mes = Integer.parseInt(fecha[1]);
+                System.out.println(mes);
                 año = Integer.parseInt(fecha[2]);
+                System.out.println(año);
                 fechas[i] = Calendar.getInstance();
                 fechas[i].set(Calendar.YEAR, año);
                 fechas[i].set(Calendar.MONTH, mes);
@@ -178,6 +185,7 @@ public class Calendario {
             //Asignamos dia, mes y año a cada variable de la posicion corresp.
             dia1=fechas[n].get(Calendar.DATE);
             mes1=fechas[n].get(Calendar.MONTH);
+            System.out.println("mes"+fechas[n].get(Calendar.MONTH));
             año1=fechas[n].get(Calendar.YEAR);
             
             dia2=fechas[n+1].get(Calendar.DATE);
@@ -222,46 +230,29 @@ public class Calendario {
                 //se inicia en dos ya que si solo es un mes ya se obtuvieron
                 //los dias en el primer for, y de ser mayor a dos ahora si se 
                 //sumarian los dias de cada mes
-                for (int i = 2; i <=  diferencias[i].getMes(); i++){
+                for (int i = 2; i <=  auxMes; i++){
                     //si es mes par se le suman 30 dias
-                    if(diferencias[i].getMes()
-                            %2==0){
-                        if(band){//Si inicialmente los meses eran negativos
-                            //se cambian los dais a negativos y se suman con 30
-                            diferencias[n].setDia(diferencias[n].getDia()*-1);
-                            diferencias[n].setDia((diferencias[n].getDia()+30));
-                        }
-                        else//si no eran negativos los meses se hace suma normal
-                            diferencias[n].setDia((diferencias[n].getDia()+30));                            
-                    }
+                    if(auxMes%2==0)
+                        auxDia+=30;                    
                     //si es un mes par se agregan 30 dias
-                    else if(diferencias[n].getMes()
-                            %3==0){
-                        if (band) {
-                            diferencias[n].setDia(diferencias[n].getDia()*-1);
-                            diferencias[n].setDia((diferencias[n].getDia()+31));                            
-                        }
-                        diferencias[n].setDia((diferencias[n].getDia()+31));
-                        
-                    }
+                    else if(auxMes%3==0)                        
+                        auxDia+=31;
                     //si los meses son mayores a 11 se le suma un dia mas por el
-                    //mes 8 que tiene 31 dias
-                    
-                    //hacer lo mismo quese hizo si los meses son negativos
-                    if(diferencias[n].getMes()>11)
-                        if(band)                        
-                            diferencias[n].setDia((diferencias[n].getDia()*-1)-1);                    
-                    else
-                        diferencias[n].setDia(diferencias[n].getDia()+1);
+                    //mes 8 que tiene 31 dias                    
+                    if(auxMes>11)
+                        auxDia+=1;
                 }            
             }
-            if (diferencias[n].getAño()>1) {
-                diferencias[n].setDia(diferencias[n].getDia()-diferencias[n].getAño()*365);
-                diferencias[n].setMes((diferencias[n].getDia()/30));
-                diferencias[n].setDia(diferencias[n].getDia()%30);
-                diferencias[n].setAño(diferencias[n].getMes()/12);
-                diferencias[n].setMes(diferencias[n].getMes()%12);
-            }
-        }       
+            if (auxAño>1) {
+                diferencias[n].setDia(auxAño*365);
+            }                            
+            diferencias[n].setMes((auxDia/30));
+            diferencias[n].setDia(auxDia%30);
+            diferencias[n].setAño(diferencias[n].getMes()/12);
+            diferencias[n].setMes(diferencias[n].getMes()%12);
+            System.out.println("La diferencia entre "+fechas[n].getTime()+" y \n"
+                + fechas[n+1].getTime()+" es: "+diferencias[n].getDia()+" dias, \n"
+                + diferencias[n].getMes()+" meses, "+diferencias[n].getAño()+" años");
+        }           
     }
 }
