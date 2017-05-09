@@ -32,7 +32,7 @@ public class Calendario {
         //System.out.println(c.fechaActual);
         //System.out.println(c.formato.format(c.fechaActual));
         c.datos();
-        c.algo();
+        //c.algo();
         //for (int i = 0; i < 2; i++)
             //System.out.println(c.diferencia[i].getTime());            
         
@@ -90,19 +90,22 @@ public class Calendario {
         //creamos variables para guardar dia, mes y año
         int dia, mes, año;
         //creamos un arreglo de nombre fecha para obtener dia, mse, año
-        String fecha[], v="algo";
+        String fecha[], v="algo", conti="";
         for (int i = 0; i < 2; i++) {
             do{
+                if(v.equalsIgnoreCase("continuar"))
+                    break;                
                 v = d.readString("Ingresa la fecha en formato dd/mm/aaaa \n"
                    + " o 'continuar'");                 
                 //Asigna la fecha acutal a la variable de lectura v
                 if (v.equalsIgnoreCase("continuar")){
+                    conti=v;
                     v=(String)formato.format(fechaActual);
                     //System.out.println("entro al if");
                 }
-                //System.out.println("fehcas ingresada por el usuario"+v);
-                
+                //System.out.println("fehcas ingresada por el usuario"+v);                
             }while(!validar(v));
+            
             System.out.println(v);
             if (v.equalsIgnoreCase(formato.format(fechaActual))){
                 //System.out.println("fechas "+v);
@@ -120,7 +123,7 @@ public class Calendario {
                 //introducimos el año
                 fechas[i].set(Calendar.YEAR, año);
                 //introducimos el mes
-                fechas[i].set(Calendar.MONTH, mes);
+                fechas[i].set(Calendar.MONTH, mes-1);
                 //introducimos el dia
                 fechas[i].set(Calendar.DAY_OF_MONTH, dia);
                 //System.out.println(dia+", "+mes+", "+año);
@@ -135,11 +138,13 @@ public class Calendario {
                 año = Integer.parseInt(fecha[2]);
                 fechas[i] = Calendar.getInstance();
                 fechas[i].set(Calendar.YEAR, año);
-                fechas[i].set(Calendar.MONTH, mes);
+                fechas[i].set(Calendar.MONTH, mes-1);
                 fechas[i].set(Calendar.DAY_OF_MONTH, dia);
                 //System.out.println(dia+", "+mes+", "+año);
             }  
             cuenta++;
+            if (conti.equalsIgnoreCase("continuar"))
+                break;
         }    
     }  
     
