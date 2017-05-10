@@ -262,6 +262,7 @@ public class Calendario {
             System.out.println("La diferencia entre "+fechas[n].getTime()+" y \n"
                 + fechas[n+1].getTime()+" es: "+diferencias[n].getDia()+" dias, \n"
                 + diferencias[n].getMes()+" meses, "+diferencias[n].getAño()+" años");
+            System.out.println("algo");
         }           
     }
 }
