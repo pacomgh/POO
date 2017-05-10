@@ -32,7 +32,7 @@ public class Calendario {
         //System.out.println(c.fechaActual);
         //System.out.println(c.formato.format(c.fechaActual));
         c.datos();
-        //c.algo();
+        c.algo();
         //for (int i = 0; i < 2; i++)
             //System.out.println(c.diferencia[i].getTime());            
         
@@ -99,14 +99,15 @@ public class Calendario {
                    + " o 'continuar'");                 
                 //Asigna la fecha acutal a la variable de lectura v
                 if (v.equalsIgnoreCase("continuar")){
+                    //se asigna el valor de v a una nueva variable si contiene
+                    //continuar
                     conti=v;
                     v=(String)formato.format(fechaActual);
                     //System.out.println("entro al if");
                 }
                 //System.out.println("fehcas ingresada por el usuario"+v);                
-            }while(!validar(v));
-            
-            System.out.println(v);
+            }while(!validar(v));            
+            //System.out.println(v);
             if (v.equalsIgnoreCase(formato.format(fechaActual))){
                 //System.out.println("fechas "+v);
                 //asigna la fecha actual a la variable v
@@ -129,7 +130,7 @@ public class Calendario {
                 //System.out.println(dia+", "+mes+", "+año);
                 //format.format(fechaActual);
                 //fechas[i]= new Date(año,mes,dia);
-                //System.out.println(v);
+                System.out.println(v);
             }else{
                 System.out.println(" "+v);
                 fecha = v.split("/"); 
@@ -139,6 +140,7 @@ public class Calendario {
                 fechas[i] = Calendar.getInstance();
                 fechas[i].set(Calendar.YEAR, año);
                 fechas[i].set(Calendar.MONTH, mes-1);
+                //System.out.println(fechas[i].getTime());
                 fechas[i].set(Calendar.DAY_OF_MONTH, dia);
                 //System.out.println(dia+", "+mes+", "+año);
             }  
@@ -158,11 +160,13 @@ public class Calendario {
             partes1 = new String[2];
             dia1 = fechas[j].get(Calendar.DATE);
             mes1 = fechas[j].get(Calendar.MONTH);
+            System.out.println(mes1);
             año1 = fechas[j].get(Calendar.YEAR);
             
             partes2 = new String[2];
             dia2 = fechas[j+1].get(Calendar.DATE);
             mes2 = fechas[j+1].get(Calendar.MONTH);
+            System.out.println(mes2);
             año2 = fechas[j+1].get(Calendar.YEAR);
             
             diferencias[j] = new Fecha();
@@ -187,11 +191,12 @@ public class Calendario {
             //Asignamos dia, mes y año a cada variable de la posicion corresp.
             dia1=fechas[n].get(Calendar.DATE);
             mes1=fechas[n].get(Calendar.MONTH);
-            System.out.println("mes"+fechas[n].get(Calendar.MONTH));
+            System.out.println("mes1 "+mes1+" "+fechas[n].get(Calendar.MONTH));
             año1=fechas[n].get(Calendar.YEAR);
             
             dia2=fechas[n+1].get(Calendar.DATE);
             mes2=fechas[n+1].get(Calendar.MONTH);
+            System.out.println("mes2 "+mes2+" "+fechas[n+1].get(Calendar.MONTH));
             año2=fechas[n+1].get(Calendar.YEAR); 
             //Le damos el valor a año y mes segun la diferencia entre cada uno
             auxAño=(año1-año2);
@@ -218,10 +223,12 @@ public class Calendario {
                 auxDia+=((dia1-31)+dia2);  
             //para estas desiciones si la diferencia de meses es menor 1 sumaremos
             //los dias correspondientes a los dias que ya tenemos
+            System.out.println(auxMes);
             if(auxMes<0){
                 //si los meses son negativos los convertimos a positivos
                 //para poder hacer las operaciones mas facil
                 auxMes*=-1;
+                System.out.println(auxMes);
                 //diferencias[n].setMes(diferencias[n].getMes()*-1);
                 //esta bandera indica que hora la desta de los meses ahora es
                 //positivo, en casi de que inicialmente fueran negativos
